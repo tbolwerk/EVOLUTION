@@ -15,19 +15,20 @@ public class DNA {
     private PApplet app;
 
 
-    public DNA(PApplet app, String buildSequence) {
+    public DNA(String buildSequence) {
         genes = buildSequence.toCharArray();
         correct = new boolean[genes.length];
-        this.app = app;
+
 
 
     }
 
-    public void show(int x, int y, int size) {
-        System.out.println("Result: " + toString() + " Fitness score: " + fitness());
+    public void show(PApplet app, int x, int y, int size) {
+//        System.out.println("Result: " + toString() + " Fitness score: " + fitness());
         app.fill(255);
         app.textSize(size);
 //        app.text("Target: " + TPN.Evolution.getTarget(),0,y+size*1);
+
         app.text("Result:  " + toString() + " Fitness score: " + fitness() * 100 + "%", x, size * 2 + y);
 
     }
@@ -35,17 +36,27 @@ public class DNA {
     public float fitness() {
         int score = 0;
         for (int i = 0; i < genes.length; i++) {
-            if (genes[i] == Evolution.getTarget().toCharArray()[i]) {
+            if (genes[i] == Main.getTarget().toCharArray()[i]) {
                 correct[i] = true;
                 score++;
             }
         }
-        return (float) score / Evolution.getTarget().length();
+        return (float) score / Main.getTarget().length();
     }
 
     public DNA crossover(DNA male) {
         StringBuilder childBuildSequence = new StringBuilder();
-        int midpoint = random.nextInt(genes.length);
+        int count = 0;
+        for (int i = 0; i < correct.length; i++) {
+            if (!correct[i]) {
+                count++;
+            }
+        }
+        if (count == 0) {
+            count = 1;
+        }
+        int midpoint = random.nextInt(count);
+
         for (int i = 0; i < male.getGenes().length; i++) {
             if (!correct[i]) {
                 if (i > midpoint) {
@@ -57,7 +68,7 @@ public class DNA {
                 childBuildSequence.append(genes[i]);
             }
         }
-        DNA child = new DNA(app, childBuildSequence.toString());
+        DNA child = new DNA(childBuildSequence.toString());
         return child;
     }
 
