@@ -1,3 +1,5 @@
+package TPN;
+
 import processing.core.PApplet;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class Evolution extends PApplet implements Runnable {
     private Random random = new Random();
 
     public static void main(String[] args) {
-        PApplet.main("Evolution");
+        PApplet.main("TPN.Evolution");
     }
 
     public static String getTarget() {

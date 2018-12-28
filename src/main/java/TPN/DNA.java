@@ -1,3 +1,5 @@
+package TPN;
+
 import processing.core.PApplet;
 
 import java.util.Random;
@@ -25,7 +27,7 @@ public class DNA {
         System.out.println("Result: " + toString() + " Fitness score: " + fitness());
         app.fill(255);
         app.textSize(size);
-//        app.text("Target: " + Evolution.getTarget(),0,y+size*1);
+//        app.text("Target: " + TPN.Evolution.getTarget(),0,y+size*1);
         app.text("Result:  " + toString() + " Fitness score: " + fitness() * 100 + "%", x, size * 2 + y);
 
     }
